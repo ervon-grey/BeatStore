@@ -9,6 +9,7 @@ media
 scraps_beatstore/
 .DS_Store
 .vscode/
+.env
 
 **/migrations/**
 !**/migrations
