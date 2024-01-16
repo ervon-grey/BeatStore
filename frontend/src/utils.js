@@ -24,3 +24,22 @@ export function cheapestLicense(licenses) {
  }
 }
 
+export const dummyLicenses = {
+ "licenses": [
+  {
+   "currency": "€",
+   "license_type": "B",
+   "price": "25.00",
+  },
+  {
+   "currency": "€",
+   "license_type": "P",
+   "price": "55.00",
+  },
+  {
+   "currency": "€",
+   "license_type": "U",
+   "price": "100.00",
+  }
+ ]
+};

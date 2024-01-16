@@ -1,17 +1,19 @@
+import React, { useState, useRef, useEffect } from 'react';
+
 
 const Catalog = (props) => {
 
   var beats = props.beats;
   const setCurrentBeat = props.setCurrentBeat;
   const cheapestLicense = props.cheapestLicense
+  const setDialogState = props.setDialogState
 
   const selectBeat = (beatIndex) => {
     const selectedBeat = beats[beatIndex];
     setCurrentBeat(selectedBeat);
   };
-
   return (
-    <div className="pb-[200px]">
+    <div className="pb-[70px]">
       <div className="grid-cols-12 font-bold text-sm gap-1 px-32 hidden lg:grid">
         <div className="col-span-5 pr-2 pb-2 pt-2 pl-[82px]">TITLE</div>
         <div className="col-span-1 p-2">TIME</div>
@@ -39,7 +41,7 @@ const Catalog = (props) => {
             <button className="hidden md:flex text-black bg-white p-2 mr-3 border-solid border-2 border-gray drop-shadow-sm text-sm rounded-lg font-semibold flex items-center">
               <img src="static/share-fill.svg" alt=""></img>
             </button>
-            <button className="px-3 py-2 flex items-center text-white bg-blue text-sm rounded-lg font-semibold flex">
+            <button className="px-3 py-2 flex items-center text-white bg-blue text-sm rounded-lg font-semibold flex" onClick={() => setDialogState({ "open": true, "beat": beat })}>
               <img src="static/bag-plus-fill.svg" alt=""></img>
               <span className="hidden sm:flex pl-2">{cheapestLicense(beat.licenses)}</span>
             </button>
@@ -47,7 +49,6 @@ const Catalog = (props) => {
         </div>
 
       ))}
-
     </div>
   )
 }

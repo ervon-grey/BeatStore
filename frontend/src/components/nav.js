@@ -15,7 +15,7 @@ const Header = () => {
                  <div>
                      <button className="mt-1.5 px-3 py-1.5 text-black bg-white text-sm rounded-lg font-semibold flex items-center">
                       <img src="static/bag-fill-black.svg" alt=""></img>
-                      <span className="pl-2">0€</span>
+                      <span className="pl-2">20€</span>
                      </button>
                  </div>
                 </div>

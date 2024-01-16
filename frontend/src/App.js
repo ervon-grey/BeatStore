@@ -4,9 +4,10 @@ import Spotlight from './components/spotlight.js'
 import SearchBar from './components/searchbar.js'
 import Catalog from './components/catalog.js'
 import Player from './components/player.js'
+import Dialog from './components/dialog.js'
 //import { DataProvider } from './components/BeatsDataContext.js'
-import React, { useState, useEffect } from 'react';
-import { addIndexToObjects, cheapestLicense } from './utils.js'
+import React, { useState, useEffect, useRef } from 'react';
+import { addIndexToObjects, cheapestLicense, dummyLicenses } from './utils.js'
 
 
 
@@ -16,6 +17,19 @@ function App() {
   const [currentBeat, setCurrentBeat] = useState({});
   const [spotlight, setSpotlight] = useState({});
   const [isPlaying, setIsPlaying] = useState(false);
+  const [dialogState, setDialogState] = useState({
+    "open": false,
+    "beat": dummyLicenses
+  });
+  const dialogRef = useRef(null);
+  useEffect(() => {
+    if (dialogState["open"]) {
+      dialogRef.current.showModal();
+    }
+    else {
+      dialogRef.current.close()
+    }
+  }, [dialogState])
 
   const getBeats = async (url) => {
     try {
@@ -32,17 +46,17 @@ function App() {
   };
 
   function getSpotlight(allbeats) {
-      var spotlight = '';
-      for (let i = 0; i < allbeats.length; i++) {
-        if (allbeats[i].spotlight == true) {
-          var spotlight = allbeats[i];
-          break
-        }
-      };
-      if (spotlight == '') {
-        spotlight = allbeats[0]
+    var spotlight = '';
+    for (let i = 0; i < allbeats.length; i++) {
+      if (allbeats[i].spotlight == true) {
+        var spotlight = allbeats[i];
+        break
       }
-      setSpotlight(spotlight);
+    };
+    if (spotlight == '') {
+      spotlight = allbeats[0]
+    }
+    setSpotlight(spotlight);
   };
 
   useEffect(() => {
@@ -50,7 +64,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App min-h-screen">
+    <div className="App min-h-screen max-w-screen-2xl mx-auto">
       <Header />
 
       <Spotlight
@@ -61,19 +75,28 @@ function App() {
 
       <SearchBar
         setBeats={getBeats} />
-
       <Catalog
         beats={beats}
         setCurrentBeat={setCurrentBeat}
-        cheapestLicense={cheapestLicense} />
+        cheapestLicense={cheapestLicense}
+        setDialogState={setDialogState}
+      />
 
-      <Player
+      <Player className="max-w-screen-2xl" //not working
         beats={beats}
         setCurrentBeat={setCurrentBeat} currentBeat={currentBeat}
         setSpotlight={setSpotlight}
         isPlaying={isPlaying} setIsPlaying={setIsPlaying}
         cheapestLicense={cheapestLicense} />
+
+      <Dialog
+        dialogRef={dialogRef}
+        setDialogState={setDialogState}
+        dialogState={dialogState}
+      />
+
     </div>
+
   );
 }
 
