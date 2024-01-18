@@ -1,5 +1,6 @@
 import './App.css';
 import Header from './components/nav.js'
+import Cart from './components/cart.js'
 import Spotlight from './components/spotlight.js'
 import SearchBar from './components/searchbar.js'
 import Catalog from './components/catalog.js'
@@ -17,6 +18,7 @@ function App() {
   const [currentBeat, setCurrentBeat] = useState({});
   const [spotlight, setSpotlight] = useState({});
   const [isPlaying, setIsPlaying] = useState(false);
+  const [cart, setCart] = useState([]);
   const [dialogState, setDialogState] = useState({
     "open": false,
     "beat": dummyLicenses
@@ -66,7 +68,10 @@ function App() {
   return (
     <div className="App min-h-screen max-w-screen-2xl mx-auto">
       <Header />
-
+      <Cart
+        cart={cart}
+        setCart={setCart}
+      />
       <Spotlight
         setCurrentBeat={setCurrentBeat}
         isPlaying={isPlaying}
@@ -87,12 +92,16 @@ function App() {
         setCurrentBeat={setCurrentBeat} currentBeat={currentBeat}
         setSpotlight={setSpotlight}
         isPlaying={isPlaying} setIsPlaying={setIsPlaying}
-        cheapestLicense={cheapestLicense} />
+        cheapestLicense={cheapestLicense}
+        setDialogState={setDialogState}
+      />
 
       <Dialog
         dialogRef={dialogRef}
         setDialogState={setDialogState}
         dialogState={dialogState}
+        setCart={setCart}
+        cart={cart}
       />
 
     </div>

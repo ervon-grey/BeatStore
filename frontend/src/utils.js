@@ -43,3 +43,7 @@ export const dummyLicenses = {
   }
  ]
 };
+
+export function displayPriceCurrency(license) {
+ return license["currency"] == "$" ? "$" + license["price"] : license["price"] + license["currency"]
+}

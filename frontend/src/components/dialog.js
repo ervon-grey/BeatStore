@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { dummyLicenses } from '../utils.js'
-
-function displayPriceCurrency(license) {
-  return license["currency"] == "$" ? "$" + license["price"] : license["price"] + license["currency"]
-}
+import { dummyLicenses, displayPriceCurrency } from '../utils.js'
 
 const Dialog = (props) => {
   const dialogRef = props.dialogRef;
   const setDialogState = props.setDialogState;
 
+  const setCart = props.setCart;
+  const cart = props.cart;
+
+  const dialogBeat = props.dialogState["beat"];
   const licenses = props.dialogState["beat"]["licenses"];
   const basicLic = licenses.find(obj => obj.license_type === "B");
   const premiumLic = licenses.find(obj => obj.license_type === "P");
@@ -91,7 +91,9 @@ const Dialog = (props) => {
           </span>
         </div>
         <button
-          className="px-3 h-10 flex items-center text-white bg-blue text-sm rounded-lg font-semibold flex self-end">
+          className="px-3 h-10 flex items-center text-white bg-blue text-sm rounded-lg font-semibold flex self-end"
+          onClick={() => setCart([...cart, { "beat": dialogBeat, "license": licenses.find(obj => obj.license_type === selectedLicense) }])}
+        >
           <img src="static/bag-plus-fill.svg" alt="" className="pr-2"></img>
           <span>Add to Cart</span>
         </button>

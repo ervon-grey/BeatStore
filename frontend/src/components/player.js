@@ -10,6 +10,8 @@ const Player = (props) => {
     const setSpotlight = props.setSpotlight;
     const setIsPlaying = props.setIsPlaying;
     const cheapestLicense = props.cheapestLicense;
+    const setDialogState = props.setDialogState
+
 
     const audioRef = useRef(null);
     const coverRef = useRef(null)
@@ -98,7 +100,9 @@ const Player = (props) => {
                         <img src={isMuted ? './static/volume-mute.svg' : './static/volume-down.svg'} alt="" className="w-7"></img>
                     </button>
 
-                    <button className="px-3 py-1.5 text-black bg-white text-sm rounded-lg font-semibold flex items-center">
+                    <button className="px-3 py-1.5 text-black bg-white text-sm rounded-lg font-semibold flex items-center"
+                        onClick={() => setDialogState({ "open": true, "beat": currentBeat })}
+                    >
                         <img src="static/bag-fill-black.svg" alt=""></img>
                         <span className="pl-2">{cheapestLicense(currentBeat.licenses)}</span>
                     </button>
