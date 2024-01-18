@@ -3,8 +3,9 @@
 const Spotlight = (props) => {
   var spotlight = props.spotlight;
   var setCurrentBeat = props.setCurrentBeat;
-  var isPlaying = props.isPlaying
-  const cheapestLicense = props.cheapestLicense
+  var isPlaying = props.isPlaying;
+  var setDialogState = props.setDialogState;
+  const cheapestLicense = props.cheapestLicense;
   function tags2title(tags) {
     if (tags) {
       return tags.replace(/,/g, ' x')
@@ -21,7 +22,7 @@ const Spotlight = (props) => {
     <div className="w-full flex px-1 lg:px-10 mt-10">
       <div className="relative">
         <img src={spotlight.artwork} alt="" className="rounded-lg z-0 w-[120px] lg:w-[220px] lg:h-[220px] h-[120px]" ></img>
-        <img src={!isPlaying ? "./static/play-white-border.svg" : "" } alt="" className="z-10 lg:hidden absolute bottom-9 left-7"
+        <img src={!isPlaying ? "./static/play-white-border.svg" : ""} alt="" className="z-10 lg:hidden absolute bottom-9 left-7"
           onClick={() => { setCurrentBeat(spotlight) }}
         ></img>
       </div>
@@ -43,7 +44,9 @@ const Spotlight = (props) => {
 
 
         <div className="flex mt-8">
-          <button className="px-3 flex items-center mr-4 text-white bg-blue text-sm rounded-lg font-semibold flex">
+          <button className="px-3 flex items-center mr-4 text-white bg-blue text-sm rounded-lg font-semibold flex"
+            onClick={() => setDialogState({ "open": true, "beat": spotlight })}
+          >
             <img src="static/bag-plus-fill.svg" alt=""></img>
             <span className="pl-2">{cheapestLicense(spotlight.licenses)}</span>
           </button>

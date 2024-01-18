@@ -76,8 +76,9 @@ function App() {
         setCurrentBeat={setCurrentBeat}
         isPlaying={isPlaying}
         spotlight={spotlight}
-        cheapestLicense={cheapestLicense} />
-
+        cheapestLicense={cheapestLicense} 
+        setDialogState={setDialogState}
+        />
       <SearchBar
         setBeats={getBeats} />
       <Catalog

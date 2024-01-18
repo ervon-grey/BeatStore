@@ -92,7 +92,10 @@ const Dialog = (props) => {
         </div>
         <button
           className="px-3 h-10 flex items-center text-white bg-blue text-sm rounded-lg font-semibold flex self-end"
-          onClick={() => setCart([...cart, { "beat": dialogBeat, "license": licenses.find(obj => obj.license_type === selectedLicense) }])}
+          onClick={() => { 
+            setCart([...cart, { "beat": dialogBeat, "license": licenses.find(obj => obj.license_type === selectedLicense) }]); 
+            setDialogState({ "open": false, "beat": dummyLicenses })
+          }}
         >
           <img src="static/bag-plus-fill.svg" alt="" className="pr-2"></img>
           <span>Add to Cart</span>
