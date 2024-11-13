@@ -1,4 +1,3 @@
-import { useBeatsData } from './BeatsDataContext.js'
 import React, { useState, useRef, useEffect } from 'react';
 
 
@@ -103,7 +102,7 @@ const Player = (props) => {
                     <button className="px-3 py-1.5 text-black bg-white text-sm rounded-lg font-semibold flex items-center"
                         onClick={() => setDialogState({ "open": true, "beat": currentBeat })}
                     >
-                        <img src="static/bag-fill-black.svg" alt=""></img>
+                        <img src="static/bag-plus-fill-black.svg" alt=""></img>
                         <span className="pl-2">{cheapestLicense(currentBeat.licenses)}</span>
                     </button>
 

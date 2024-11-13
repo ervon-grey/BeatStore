@@ -92,8 +92,12 @@ const Dialog = (props) => {
         </div>
         <button
           className="px-3 h-10 flex items-center text-white bg-blue text-sm rounded-lg font-semibold flex self-end"
-          onClick={() => { 
-            setCart([...cart, { "beat": dialogBeat, "license": licenses.find(obj => obj.license_type === selectedLicense) }]); 
+          onClick={(event) => {
+            event.stopPropagation();
+            setCart({
+              "items": [...cart["items"], { "beat": dialogBeat, "license": licenses.find(obj => obj.license_type === selectedLicense) }],
+              "open": true
+            });
             setDialogState({ "open": false, "beat": dummyLicenses })
           }}
         >

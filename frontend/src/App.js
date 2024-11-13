@@ -6,7 +6,8 @@ import SearchBar from './components/searchbar.js'
 import Catalog from './components/catalog.js'
 import Player from './components/player.js'
 import Dialog from './components/dialog.js'
-//import { DataProvider } from './components/BeatsDataContext.js'
+import ContactDialog from './components/ContactDialog.js'
+
 import React, { useState, useEffect, useRef } from 'react';
 import { addIndexToObjects, cheapestLicense, dummyLicenses } from './utils.js'
 
@@ -18,7 +19,9 @@ function App() {
   const [currentBeat, setCurrentBeat] = useState({});
   const [spotlight, setSpotlight] = useState({});
   const [isPlaying, setIsPlaying] = useState(false);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState({ "items": [], "open": false });
+  const cartRef = useRef(cart);
+
   const [dialogState, setDialogState] = useState({
     "open": false,
     "beat": dummyLicenses
@@ -33,13 +36,20 @@ function App() {
     }
   }, [dialogState])
 
+  const [isContactDialogOpen, setIsContactDialogOpen] = useState(false)
+  const contactDialogRef = useRef(null);
+
+
+
   const getBeats = async (url) => {
     try {
       let response = await fetch(url);
       let data = await response.json();
       let indexedData = addIndexToObjects(data)
-      setBeats(indexedData);
-      getSpotlight(indexedData);
+      if (indexedData.length > 0) {
+        setBeats(indexedData);
+        getSpotlight(indexedData);
+      }
     } catch (error) {
       console.error('Error fetching beats data:', error);
     } finally {
@@ -63,24 +73,41 @@ function App() {
 
   useEffect(() => {
     getBeats('http://127.0.0.1:8000/api/beats/');
+    document.addEventListener("click", handleClickOutsideCart);
   }, []);
+  const cartContainerRef = useRef(null);
+
+  function handleClickOutsideCart(event) {
+    if (!cartContainerRef.current.contains(event.target) && cartRef.current.open) {
+      setCart((cart) => ({ ...cart, open: false }));
+    }
+  }
+  useEffect(() => {
+    cartRef.current = cart;
+  }, [cart]);
+
 
   return (
     <div className="App min-h-screen max-w-screen-2xl mx-auto">
-      <Header />
+      <Header
+        cart={cart}
+        setCart={setCart}
+        setIsContactDialogOpen={setIsContactDialogOpen}
+      />
       <Cart
         cart={cart}
         setCart={setCart}
+        cartContainerRef={cartContainerRef}
       />
       <Spotlight
         setCurrentBeat={setCurrentBeat}
         isPlaying={isPlaying}
         spotlight={spotlight}
-        cheapestLicense={cheapestLicense} 
+        cheapestLicense={cheapestLicense}
         setDialogState={setDialogState}
-        />
+      />
       <SearchBar
-        setBeats={getBeats} />
+        getBeats={getBeats} />
       <Catalog
         beats={beats}
         setCurrentBeat={setCurrentBeat}
@@ -103,6 +130,12 @@ function App() {
         dialogState={dialogState}
         setCart={setCart}
         cart={cart}
+      />
+
+      <ContactDialog
+        contactDialogRef={contactDialogRef}
+        setIsContactDialogOpen={setIsContactDialogOpen}
+        isContactDialogOpen={isContactDialogOpen}
       />
 
     </div>
