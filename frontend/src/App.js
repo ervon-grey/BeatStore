@@ -11,9 +11,14 @@ import ContactDialog from './components/ContactDialog.js'
 import React, { useState, useEffect, useRef } from 'react';
 import { addIndexToObjects, cheapestLicense, dummyLicenses } from './utils.js'
 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Checkout from './components/checkout.js';
 
 
-function App() {
+//this could have been done cleaner instead of creating MainApp() and App()
+//also shitton of props instead of Context
+//states should be in a seperate file
+function MainApp() {
   const [beats, setBeats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentBeat, setCurrentBeat] = useState({});
@@ -78,8 +83,12 @@ function App() {
   const cartContainerRef = useRef(null);
 
   function handleClickOutsideCart(event) {
-    if (!cartContainerRef.current.contains(event.target) && cartRef.current.open) {
-      setCart((cart) => ({ ...cart, open: false }));
+    try {
+      if (!cartContainerRef.current.contains(event.target) && cartRef.current.open) {
+        setCart((cart) => ({ ...cart, open: false }));
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
   useEffect(() => {
@@ -140,6 +149,17 @@ function App() {
 
     </div>
 
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainApp />} />
+        <Route path="/checkout" element={<Checkout />} />
+      </Routes>
+    </Router>
   );
 }
 

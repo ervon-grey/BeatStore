@@ -1,10 +1,14 @@
 import { displayPriceCurrency } from '../utils.js'
+import { useNavigate } from 'react-router-dom';
+
 
 
 const Cart = (props) => {
  const cart = props.cart;
  const cartContainerRef = props.cartContainerRef
  const setCart = props.setCart;
+ const navigate = useNavigate();
+
  if (!cart["items"][0]) {
   return (
    <div className={`mt-2 fixed top-16 lg:right-8 right-2 bg-gray p-2 rounded-lg w-80 z-50 max-w-full text-center ${cart['open'] ? 'visible' : 'hidden'}`} ref={cartContainerRef}>
@@ -25,7 +29,9 @@ const Cart = (props) => {
      </li>
     ))}
    </ul>
-   <button className="w-full mt-2 rounded-lg font-bold bg-blue text-white px-4 py-2">
+   <button className="w-full mt-2 rounded-lg font-bold bg-blue text-white px-4 py-2"
+    onClick={() => navigate('/checkout', { state: { cart } })}
+   >
     {cart['items'].reduce((sum, item) => sum + parseFloat((item['license']?.['price'] || 0)), 0).toFixed(2)} {cart['items'][0]['license']['currency']} Checkout
    </button>
   </div>

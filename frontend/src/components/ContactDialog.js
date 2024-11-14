@@ -12,19 +12,19 @@ const ContactDialog = (props) => {
       <div className="grid md:grid-cols-4 grid-cols-1 gap-4 w-100 pt-10 mb-8">
         <div className="w-100 bg-gray flex flex-col items-center justify-center space-y-2 p-3 rounded">
           <img src="./static/email-icon.png" width="26px"></img>
-          <span>1933@email.com</span>
+          <span>producer@email.com</span>
         </div>
         <div className="w-100 bg-gray flex flex-col items-center justify-center space-y-2 p-3 rounded">
           <img src="./static/ig-icon.png" width="26px"></img>
-          <span>@Evola123</span>
+          <span>@theProducer</span>
         </div>
         <div className="w-100 bg-gray flex flex-col items-center justify-center space-y-2 p-3 rounded">
           <img src="./static/youtube-icon.png" width="26px"></img>
-          <span>wyattstagg</span>
+          <span>Producer</span>
         </div>
         <div className="w-100 bg-gray flex flex-col items-center justify-center space-y-2 p-3 rounded">
           <img src="./static/beatstars-icon.png" width="26px"></img>
-          <span>Herms Niel</span>
+          <span>Producer</span>
         </div>
       </div>
     </dialog >
