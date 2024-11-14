@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import PayPalButton from './PayPalButton';
 
 function Checkout() {
  const location = useLocation();
@@ -20,20 +21,17 @@ function Checkout() {
    <div className="grid grid-cols-12 pt-12 gap-4 p-2 md:p-12 ">
 
     <div className="w-100 md:col-span-8 col-span-12">
-     <div className="w-100 flex justify-between mb-8">
-      <span class="text-2xl font-semibold">Cart ({cart.items.length})</span>
-      <button className="bg-gray px-2 rounded flex items-center gap-2">
-       <span className="text-black">License Info</span>
-       <img src="./static/info-icon.png" width="16px" alt="Info Icon" />
+     <div className="w-100 flex  mb-8 px-3">
+      <span class="text-2xl font-semibold mr-6">Cart</span>
+      <button className="hidden md:flex text-black bg-white p-2 mr-3 border-solid border-2 border-gray  rounded-lg flex items-center">
+       <img src="static/share-fill.svg" width="14px" alt=""></img>
       </button>
-
      </div>
-
-     <div className="m-0 p-0 bg-gray rounded">
+     <div className="m-0 p-0 rounded">
       {cart.items?.map((item, index) => (
        <div key={index} className="grid grid-cols-12 gap-1 px-1">
         {/* Beat Details */}
-        <div className="col-span-10 p-2 flex">
+        <div className="sm:col-span-10 col-span-9 p-2 flex">
          <img src={item.beat.artwork_thumbnail} alt="error" className="w-[50px] h-[50px] rounded-lg" />
          <div className="flex flex-col w-full overflow-hidden">
           <span className="lg:pl-6 pl-4 font-semibold overflow-hidden whitespace-nowrap text-ellipsis">
@@ -46,7 +44,7 @@ function Checkout() {
 
         </div>
 
-        <div className="col-span-2 pt-3">
+        <div className="sm:col-span-2 col-span-3 pt-3">
          <p className="">{item.license.price} {item.license.currency}</p>
         </div>
        </div>
@@ -55,66 +53,78 @@ function Checkout() {
 
      <div className="bg-gray rounded mt-4 py-1">
       <div className="w-100 grid grid-cols-12 gap-1 px-1">
-       <span className="col-span-10 pl-2 text-sm">Subtotal</span>
-       <span className="col-span-2 text-sm ">{cart['items'].reduce((sum, item) => sum + parseFloat((item['license']?.['price'] || 0)), 0).toFixed(2)} {cart['items'][0]['license']['currency']}</span>
+       <span className="sm:col-span-10 col-span-9 pl-2 text-sm">Subtotal</span>
+       <span className="sm:col-span-2 col-span-3 text-sm ">{cart['items'].reduce((sum, item) => sum + parseFloat((item['license']?.['price'] || 0)), 0).toFixed(2)} {cart['items'][0]['license']['currency']}</span>
       </div>
       <div className="w-100 grid grid-cols-12 gap-1 px-1 mt-1">
-       <span className="col-span-10 pl-2 font-bold text-[15px]">TOTAL</span>
-       <span className="col-span-2 font-bold">{cart['items'].reduce((sum, item) => sum + parseFloat((item['license']?.['price'] || 0)), 0).toFixed(2)} {cart['items'][0]['license']['currency']}</span>
+       <span className="sm:col-span-10 col-span-9 pl-2 font-bold text-[15px]">TOTAL</span>
+       <span className="sm:col-span-2 col-span-3 font-bold">{cart['items'].reduce((sum, item) => sum + parseFloat((item['license']?.['price'] || 0)), 0).toFixed(2)} {cart['items'][0]['license']['currency']}</span>
       </div>
      </div>
-
+     <hr className="mt-7 md:invisible" style={{ border: "1px solid #F0F0F0" }}></hr>
     </div>
 
-    <div className="md:col-span-4 col-span-12 p-2 bg-gray rounded">
+    <div className="md:col-span-4 col-span-12 p-2 rounded">
 
-     <div className="w-100 flex justify-between">
+     <div className="w-100 flex justify-between px-4">
       <span class="text-xl font-semibold">Checkout</span>
-      <button className="hidden md:flex text-black bg-white p-2 mr-3 border-solid border-2 border-gray drop-shadow-sm text-sm rounded-lg font-semibold flex items-center">
-       <img src="static/share-fill.svg" alt=""></img>
+      <button className="bg-gray px-2 rounded flex items-center gap-2">
+       <span className="text-black text-sm">License Info</span>
+       <img src="./static/info-icon.png" width="14px" alt="Info Icon" />
       </button>
      </div>
 
      <div className="flex flex-col gap-4 p-4">
       {/* Email */}
       <div>
-       <label htmlFor="email" className="mt-4 block text-sm font-medium text-gray-700">
+       <label htmlFor="email" className="mt-2.5 block text-sm font-medium ">
         Email
        </label>
        <input
         type="email"
         id="email"
         placeholder="Enter your email"
-        className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm px-2 py-1.5"/>
+        className="bg-gray-500 mt-1 block w-full rounded shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm px-2 py-1.5"
+        style={{
+         border: '1px solid #D3D3D3'
+        }}
+       />
       </div>
 
       {/* Artist Name */}
       <div>
-       <label htmlFor="artistName" className="mt-4 block text-sm font-medium text-gray-700">
+       <label htmlFor="artistName" className="mt-2.5 block text-sm font-medium ">
         Artist Name
        </label>
        <input
         type="text"
         id="artistName"
         placeholder="Enter your artist name"
-        className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm px-2 py-1.5"
+        className="bg-gray-500 mt-1 block w-full rounded shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm px-2 py-1.5"
+        style={{
+         border: '1px solid #D3D3D3'
+        }}
        />
       </div>
 
       {/* Real Name */}
       <div>
-       <label htmlFor="realName" className="mt-4 block text-sm font-medium text-gray-700">
+       <label htmlFor="realName" className="mt-2.5 block text-sm font-medium ">
         Real Name
        </label>
        <input
         type="text"
         id="realName"
         placeholder="Enter your real name"
-        className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm px-2 py-1.5"
+        className="bg-gray-500 mt-1 block w-full rounded shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm px-2 py-1.5"
+        style={{
+         border: '1px solid #D3D3D3'
+        }}
        />
       </div>
 
-      
+      <PayPalButton />
+
      </div>
 
     </div>
